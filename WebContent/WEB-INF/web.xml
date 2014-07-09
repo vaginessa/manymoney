@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ManeyMoney</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>处理用户注册</description>
+    <display-name>RegisterServlet</display-name>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>com.servlet.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>处理用户登陆</description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>处理用户登出</description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.servlet.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <description>处理用户注册邮箱</description>
+    <display-name>EmailCheckServlet</display-name>
+    <servlet-name>EmailCheckServlet</servlet-name>
+    <servlet-class>com.servlet.EmailCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmailCheckServlet</servlet-name>
+    <url-pattern>/EmailCheckServlet</url-pattern>
+  </servlet-mapping>
+  
+  	<servlet>
+    <description>处理用户添加模块</description>
+    <display-name>AddTypeServlet</display-name>
+    <servlet-name>AddTypeServlet</servlet-name>
+    <servlet-class>com.servlet.AddTypeServlet</servlet-class>
+  	</servlet>
+  <servlet-mapping>
+    <servlet-name>AddTypeServlet</servlet-name>
+    <url-pattern>/AddTypeServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>处理用户添加明细</description>
+    <display-name>AddDetailServlet</display-name>
+    <servlet-name>AddDetailServlet</servlet-name>
+    <servlet-class>com.servlet.AddDetailServlet</servlet-class>
+  	</servlet>
+  <servlet-mapping>
+    <servlet-name>AddDetailServlet</servlet-name>
+    <url-pattern>/AddDetailServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+   <servlet>
+    <description>更改钱包</description>
+    <display-name>ChangeWalletServlet</display-name>
+    <servlet-name>ChangeWalletServlet</servlet-name>
+    <servlet-class>com.servlet.ChangeWalletServlet</servlet-class>
+  	</servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeWalletServlet</servlet-name>
+    <url-pattern>/ChangeWalletServlet</url-pattern>
+  </servlet-mapping>
+  
+ 
+  
+  
+     <servlet>
+    <description>更改更人信息</description>
+    <display-name>ChangeInfoServlet</display-name>
+    <servlet-name>ChangeInfoServlet</servlet-name>
+    <servlet-class>com.servlet.ChangeInfoServlet</servlet-class>
+  	</servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeInfoServlet</servlet-name>
+    <url-pattern>/ChangeInfoServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>

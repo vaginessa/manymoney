@@ -1,0 +1,140 @@
+#main{
+	margin-left: auto;
+	margin-right: auto;
+	overflow:hidden
+}
+
+#header-bar
+{
+	margin-top:10px;
+	height: 40px;
+	float: right;
+}
+
+#main-left{
+	float:left;
+	width: 750px;
+	padding: 50px;
+	overflow:hidden
+}
+
+#date{
+	
+}
+
+#date .btn{
+	width:60px;
+	font-size: 30px;
+}
+
+#money-input{
+	margin-top: 10px;
+}
+
+#type-list{
+	margin-top:10px;
+	width: 100%;
+	overflow:hidden
+}
+#type-list ul{
+	
+	
+	list-style: none;
+	padding: 0px;
+}
+
+#type-list li
+{
+	width: 108px;
+	float: left;
+	height: 74px;
+	BORDER: #dedede 1px solid;
+	
+}
+#type-list li a
+{
+	width: 106px;
+	height: 72px;
+	display: block;
+	TEXT-ALIGN: center;
+	LINE-HEIGHT: 72px;
+	text-decoration: none
+}
+
+
+#type-list li a.s1
+{
+	background: #f7f9ea;
+}
+#type-list li a.s2
+{
+	background: #fef6ec;
+}
+#type-list li a.s3
+{
+	background: #f1fafd;
+}
+#type-list li a.s4
+{
+	background: #f7f9ea;
+}
+#type-list li.cur a{
+	background: red;
+}
+
+#add{
+	margin-top:10px;
+	width: 100%
+	overflow:hidden
+}
+
+#simple_text{
+	float: left;	
+}
+#tally_title
+{
+	width: 500px;	
+	height: 80px;
+}
+
+#simple_btn{
+	float: left;
+	
+}
+#simple_btn input{
+	width: 150px;
+	height: 80px;
+}
+
+#add_text{
+	height: 30px;
+	width: 100px;
+	margin-top: 5px;
+	font-size: 10px;
+	line-height: 10px;
+}
+#add_button button{
+	height: 30px;
+	font-size: 10px;
+	line-height: 10px;
+}
+
+#main-right{
+	float:left;
+	width: 250px;
+	height:200px;
+	background-color: black;
+}
+
+#logout{
+	float: left;
+}
+
+#walletID{
+	float: left;
+}
+
+#detail-list{
+	width: 100%;
+}
+

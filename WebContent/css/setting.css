@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+#bar-left{
+	width: 150px;
+	float: left;
+	height: auto;	
+}
+
+#setting-right{
+	width: 700px;
+	float: left;
+	height:500px;
+	padding:50px;
+}
+
+#personal_setting table tr
+{
+	height: 50px;
+}
+#personal_setting table .first
+{
+	width: 100px;
+}
+#personal_setting table .third
+{
+	color: #ccc;
+}
+#personal_setting table .first
+{
+	width: 100px;
+}
