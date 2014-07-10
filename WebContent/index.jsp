@@ -26,25 +26,25 @@
 						src="images/home-banner-1.png" />
 					<div class="text">
 						<h2>
-							<br /> 好多钱
+							<br /> ManyMoney
 						</h2>
-						<p class="copy">好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱。</p>
+						<p class="copy">ManyMoney是一款家庭财务管理系统。</p>
 					
 					</div>
 					</section>
 					<section> <img src="images/dataviz-home-image-q2.png"
 						alt="Kendo UI" />
 					<div class="text" style="padding-top: 10px;">
-						<h2>好多钱</h2>
-						<p class="copy">好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱。</p>
+						<h2>更快</h2>
+						<p class="copy">基于浏览器实现，无需客户端，记账更方便。</p>
 						
 					</div>
 					</section>
 					<section> <img src="images/home_banner_web-q2.png"
 						alt="Kendo UI" />
 					<div class="text">
-						<h2>好多钱</h2>
-						<p class="copy">好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱好多钱。</p>
+						<h2>更好</h2>
+						<p class="copy">全平台通用，随时随地记录你的金钱使用情况。</p>
 						
 					</div>
 					</section>

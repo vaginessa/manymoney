@@ -11,13 +11,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="css/main.css">
+
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <title>ManyMoney</title>
 </head>
-<body>
+<body onLoad="document.getElementById('price').focus();">
 	<%
 		AccountEntity acc = new AccountEntity();
 		if (session.getAttribute("user") == null) {
@@ -39,21 +40,22 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">ManyMoney</a>
+			<a class="navbar-brand" href="index.jsp">ManyMoney</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-6">
 			<ul class="nav navbar-nav">
 				<li class="active" style="padding-left: 70px;"><a href="#">记一笔</a></li>
-				<li style="padding-left: 70px;"><a href="#">报表</a></li>
+				<li style="padding-left: 70px;"><a href="report.jsp">报表</a></li>
 				<li style="padding-left: 70px;"><a href="setting.jsp">设置</a></li>
 			</ul>
 			<input type="text" id="userID" style="display: none"
 				value="<%=acc.getID()%>">
 			<div id="header-bar">
-				<div style="float: left">
+				<img id="header-img" src="images/sm1.jpg"/>
+				<a href="setting.jsp" id="header-name">
 					<%=acc.getNickName()%>
-				</div>
+				</a>
 				<!-- Split button -->
 				<select id="walletID">
 					<%
@@ -79,31 +81,12 @@
 		<!-- /.navbar-collapse -->
 	</div>
 	</nav>
-	<div id="main" style="height: 1000px; width: 1000px; margin-top: 50px;">
-		<div id="main-left"">
-			<div id="date">
-				<div class="btn-toolbar" role="toolbar">
-					<div class="btn-group btn-group-lg">
-						<button type="button" class="btn btn-default"><</button>
-						<button type="button" class="btn btn-default">2</button>
-						<button type="button" class="btn btn-default">3</button>
-						<button type="button" class="btn btn-default">4</button>
-						<button type="button" class="btn btn-default">5</button>
-						<button type="button" class="btn btn-default">6</button>
-						<button type="button" class="btn btn-default">7</button>
-						<button type="button" class="btn btn-default">8</button>
-						<button type="button" class="btn btn-default">9</button>
-						<button type="button" class="btn btn-default">10</button>
-						<button type="button" class="btn btn-default">></button>
-					</div>
-				</div>
-
-			</div>
-
+	<div id="main" style="height: auto; width: 1000px; margin-top: 50px;">
+		<div id="main-left">
 			<div id="money-input">
 				<div class="input-group">
 					<span class="input-group-addon">$</span> <input type="text"
-						class="form-control" id="price" style="text-align: right">
+						class="form-control" id="price" style="text-align: right" onkeyup="clearNoNum(this)">
 				</div>
 			</div>
 
@@ -119,11 +102,11 @@
 			</div>
 			<div id="add">
 				<div id="simple_text">
-					<textarea name="title" id="tally_title" init-tip="" cols="" rows=""
-						class="s_text">备注，限20个汉字以内（可不填）</textarea>
+					<textarea name="title" id="tally_title"
+						class="s_text" style="background: transparent;" onclick="checkCommont()">备注，限20个汉字以内</textarea>
 				</div>
 				<div id="simple_btn">
-					<input name="tally_submit" type="button" class="s_btn" value="记一笔"
+					<input name="tally_submit" type="button" class="btn btn-primary btn-lg" value="记一笔"
 						id="ok_button" onclick="add_one()">
 				</div>
 			</div>
@@ -139,7 +122,7 @@
 										}
 				%>
 
-				<table class="table table-hover">
+				<table class="table table-hover" style="color: black">
 					<thead>
 						<tr>
 							<th>类型</th>
@@ -193,6 +176,14 @@
 						});
 	</script>
 	<script>
+	
+		function checkCommont()
+		{
+			  var textObj = document.getElementById("tally_title");
+		      if(textObj.value == "备注，限20个汉字以内"){
+		           textObj.value = "";
+		      }
+		}
 		function addtype() {
 			var Type = $("#add_text").val();
 			var UserID = $("#userID").val();
@@ -217,10 +208,13 @@
 				}
 			});
 		}
+		
+		
 
 		function add_one() {
 			var walletID = $("#walletID").val();
 			var TypeID = $(".cur a").attr("cid");
+			var dir=$(".cur a").attr("dir");
 			var price = $("#price").val();
 			if (price == "") {
 				$("#price").trigger("focus");
@@ -230,15 +224,21 @@
 				alert("请选择类别");
 				return false;
 			}
+			
+			 var commont = document.getElementById("tally_title");
+			 
+		      if(commont.value == "备注，限20个汉字以内"){
+		    	  commont.value = "";
+		      }
 			$.ajax({
 				type : "post",//请求方式
 				url : "AddDetailServlet",//发送请求地址
 				data : {//发送给数据库的数据
 					DetailType : TypeID,
 					WalletID : walletID,
-					DetailDir : -1,
+					DetailDir : dir,
 					DetailPrice : price,
-					comment : $("#tally_title").val()
+					comment : commont.value
 				},
 				dataType : "html",
 				//请求成功后的回调函数有两个参数
@@ -258,8 +258,16 @@
 		});
 
 		$("#walletID").change(function() {
-			alert("")
+			//alert("")
 		});
+		
+		function clearNoNum(obj)
+		{
+		   obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+		   obj.value = obj.value.replace(/^\./g,"");  //验证第一个字符是数字而不是.
+		   obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的.
+		   obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+		}
 	</script>
 
 

@@ -10,11 +10,11 @@ public class PrintToolService {
 	public CommonDAO cd=new CommonDAO();
 	public String PrintDir(int dir)
 	{
-		if(dir==1)
-			return "<span color='green'>收入</span>";
-		else if(dir==-1)
+		if(dir==-1)
+			return "<span style='color:red'>支出</span>";
+		else if(dir==1)
 		{
-			return "<span style='color:green'>支出</span>";
+			return "<span style='color:rgb(38, 231, 38)'>收入</span>";
 		}
 		return "";
 	}

@@ -11,11 +11,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="css/main.css">
+
 <link rel="stylesheet" type="text/css" href="css/setting.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <title>ManyMoney</title>
 </head>
 <body>
@@ -46,16 +47,16 @@
 			id="bs-example-navbar-collapse-6">
 			<ul class="nav navbar-nav">
 				<li style="padding-left: 70px;"><a href="main.jsp">记一笔</a></li>
-				<li style="padding-left: 70px;"><a href="#">报表</a></li>
+				<li style="padding-left: 70px;"><a href="report.jsp">报表</a></li>
 				<li class="active" style="padding-left: 70px;"><a
 					href="setting.jsp">设置</a></li>
 			</ul>
 			<input type="text" id="userID" style="display: none"
 				value="<%=acc.getID()%>">
 			<div id="header-bar">
-				<div style="float: left">
+				<a href="setting.jsp" id="header-name">
 					<%=acc.getNickName()%>
-				</div>
+				</a>
 				<!-- Split button -->
 				<select id="walletID">
 					<%

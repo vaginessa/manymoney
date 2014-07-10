@@ -18,7 +18,7 @@ public class QuickTypeService {
 		List<Map<String,Object>> pList = cd.executeQuery(sql, null);
 		StringBuffer buffer = new StringBuffer();
 		for(Map<String,Object> map:pList){
-			buffer.append(" <li><a href='#nogo' cid='"+map.get("ID")+"' class='s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
+			buffer.append(" <li><a href='#nogo'  cid='"+map.get("ID")+"' class='s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
 		}
 		return buffer.toString();
 	}
@@ -40,7 +40,11 @@ public class QuickTypeService {
 		List<Map<String,Object>> pList = cd.executeQuery(sql,new Object[]{id} );
 		StringBuffer buffer = new StringBuffer();
 		for(Map<String,Object> map:pList){
-			buffer.append(" <li><a href='#nogo' cid='"+map.get("TypeID")+"' class='s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
+			if ((int) map.get("TypeDir") == -1)
+				buffer.append(" <li><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
+			else if ((int) map.get("TypeDir") == 1)
+			buffer.append(" <li><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='income'>"+map.get("TypeName")+"</a></li>");
+			
 		}
 		return buffer.toString();
 	}
