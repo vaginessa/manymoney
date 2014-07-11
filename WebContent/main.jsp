@@ -52,7 +52,7 @@
 			<input type="text" id="userID" style="display: none"
 				value="<%=acc.getID()%>">
 			<div id="header-bar">
-				<img id="header-img" src="images/sm1.jpg"/>
+				<img class="header-img" src="images/sm1.jpg"/>
 				<a href="setting.jsp" id="header-name">
 					<%=acc.getNickName()%>
 				</a>
@@ -85,7 +85,7 @@
 		<div id="main-left">
 			<div id="money-input">
 				<div class="input-group">
-					<span class="input-group-addon">$</span> <input type="text"
+					<span class="input-group-addon">￥</span> <input type="text"
 						class="form-control" id="price" style="text-align: right" onkeyup="clearNoNum(this)">
 				</div>
 			</div>
@@ -171,7 +171,7 @@
 							if (html == "添加") {
 								$("#add_button")
 										.html(
-												"<input type='text' id='add_text' /><button onclick='addtype()'>确认添加</button>");
+												"<input type='text' id='add_text' /><button id='add-zhi' onclick='addtype()'>添加支出</button><button id='add-shou' onclick='addshoutype()'>添加收入</button>");
 							}
 						});
 	</script>
@@ -197,7 +197,34 @@
 				url : "AddTypeServlet",
 				data : {
 					type : $("#add_text").val(),
-					userID : $("#userID").val()
+					userID : $("#userID").val(),
+					dir:-1
+				},
+				dataType : "html",
+				success : function(data) {
+					var res = $(data).find("msg").text();
+					if ("ok" == res) {
+						window.location.reload();
+					}
+				}
+			});
+		}
+		
+		function addshoutype() {
+			var Type = $("#add_text").val();
+			var UserID = $("#userID").val();
+			if (Type == "") {
+				alert("类别不能为空");
+				return false;
+			}
+
+			$.ajax({
+				type : "post",
+				url : "AddTypeServlet",
+				data : {
+					type : $("#add_text").val(),
+					userID : $("#userID").val(),
+					dir:1
 				},
 				dataType : "html",
 				success : function(data) {
@@ -213,8 +240,8 @@
 
 		function add_one() {
 			var walletID = $("#walletID").val();
-			var TypeID = $(".cur a").attr("cid");
-			var dir=$(".cur a").attr("dir");
+			var TypeID = $(".cur .tt").attr("cid");
+			var dir=$(".cur .tt").attr("dir");
 			var price = $("#price").val();
 			if (price == "") {
 				$("#price").trigger("focus");
@@ -222,6 +249,11 @@
 			}
 			if (typeof TypeID === "undefined") {
 				alert("请选择类别");
+				return false;
+			}
+			
+			if (typeof dir === "undefined") {
+				alert("错误");
 				return false;
 			}
 			
@@ -268,6 +300,25 @@
 		   obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的.
 		   obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
 		}
+		
+		$(".xx").click(function(){
+			$.ajax({
+				type : "post",//请求方式
+				url : "DeleteDetailServlet",//发送请求地址
+				data : {//发送给数据库的数据
+					id:$(this).attr('uid')
+				},
+				dataType : "html",
+				//请求成功后的回调函数有两个参数
+				success : function(data) {
+					var res = $(data).find("msg").text();
+					if ("ok" == res) {
+						window.location.reload();
+					}
+
+				}
+			});
+		});
 	</script>
 
 

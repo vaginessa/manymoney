@@ -41,9 +41,9 @@ public class QuickTypeService {
 		StringBuffer buffer = new StringBuffer();
 		for(Map<String,Object> map:pList){
 			if ((int) map.get("TypeDir") == -1)
-				buffer.append(" <li><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
+				buffer.append(" <li><a uid='"+map.get("TypeID")+"' class='xx'>x</a><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='tt s"+(int)(Math.random()*3+1)+"'>"+map.get("TypeName")+"</a></li>");
 			else if ((int) map.get("TypeDir") == 1)
-			buffer.append(" <li><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='income'>"+map.get("TypeName")+"</a></li>");
+			buffer.append(" <li><a uid='"+map.get("TypeID")+"' class='xx'>x</a><a href='#nogo' dir='"+map.get("TypeDir")+"' cid='"+map.get("TypeID")+"' class='income tt'>"+map.get("TypeName")+"</a></li>");
 			
 		}
 		return buffer.toString();
@@ -54,12 +54,18 @@ public class QuickTypeService {
 	 * @param ID
 	 * @return
 	 */
-	public Boolean addType(String name,String ID)
+	public Boolean addType(String name,String ID,int dir)
 	{
-		String sql="INSERT INTO MONEY_TYPE (TypeName,TypeToUser) VALUES ('"+name+"',"+ID+")";
+		String sql="INSERT INTO MONEY_TYPE (TypeName,TypeToUser,TypeDir) VALUES ('"+name+"',"+ID+","+dir+")";
 		int res=cd.executeUpdate(sql, null);
 		return res>0;
 	}
 	
+	public Boolean deleteType(int id) {
+		String sql="delete FROM  MONEY_TYPE where TypeID=?";
+		int res=cd.executeUpdate(sql, new Object[]{id});
+		return res>0;
+		
+	}
 	
 }

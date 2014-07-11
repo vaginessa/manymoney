@@ -47,11 +47,11 @@ public class AddTypeServlet extends HttpServlet {
 		System.out.println("AJAX addType invoked!");
 		String type = request.getParameter("type");
 		String id=request.getParameter("userID");
-		
+		String dir=request.getParameter("dir");
 		System.out.println("ID:"+id+"ADD type:"+type);
 		
 		QuickTypeService qts=new QuickTypeService();
-		Boolean res=qts.addType(type, id);
+		Boolean res=qts.addType(type, id,Integer.parseInt(dir));
 		
 		if (res) {
 			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

@@ -63,7 +63,7 @@ public class UserService  {
 	}
 	
 	/**
-	 * 注册方法
+	 * 注册方法,
 	 * @param account 用户实体
 	 * @return
 	 */
@@ -73,10 +73,15 @@ public class UserService  {
 		String sql = "INSERT INTO money_user (UserEmail,UserPassword,NickName,UserBirthday,UserSex,UserImg) VALUEs (?,?,?,?,?,?)";
 		Object pattams[]={account.getEmail(),account.getPassword() ,account.getNickName(),account.getBirthday(),account.getSex(),account.getImg()};
 		int result=cd.executeUpdate(sql, pattams);
-		ininTheUser(account.getEmail());
+		ininTheUser(account.getEmail());//注册完毕初始化用户
 		return result>0;
 	}
 	
+	/**
+	 * 初始化用户，添加钱包和基本系统默认类别
+	 * @param email
+	 * @return
+	 */
 	private Boolean ininTheUser(String email) {
 		 addWallet(email, "默认钱包");
 		int ID=getIDbyEmail(email);
@@ -85,7 +90,7 @@ public class UserService  {
 		
 		for(int i=0;i<list.size();i++)
 		{
-			qts.addType(list.get(i),String.valueOf(ID));
+			qts.addType(list.get(i),String.valueOf(ID),-1);
 			
 		}
 		
@@ -93,6 +98,12 @@ public class UserService  {
 		
 	}
 	
+	/**
+	 * 给用户添加钱包
+	 * @param email
+	 * @param wallet
+	 * @return
+	 */
 	public Boolean addWallet(String email,String wallet){
 		int ID=getIDbyEmail(email);
 		String sql = "INSERT INTO money_wallet (WalletName,WalletToUser) VALUEs (?,?)";
@@ -103,6 +114,11 @@ public class UserService  {
 		
 	}
 	
+	/***
+	 * 通过邮箱查找用户id
+	 * @param email
+	 * @return
+	 */
 	public int getIDbyEmail(String email)
 	{
 		String sql = "select * from money_user where UserEmail=?";
@@ -132,6 +148,12 @@ public class UserService  {
 		return lm.size()>0;
 	}
 	
+	
+	/**
+	 * 修改个人信息
+	 * @param account
+	 * @return
+	 */
 	public Boolean changeInfoByEmail(AccountEntity account){
 		
 		String sql ="UPDATE money_user set NickName=?,UserBirthday=?,UserSex=? where UserEmail=?";

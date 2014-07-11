@@ -29,24 +29,26 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session=req.getSession();  
+		HttpSession session=req.getSession();  //创建session
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/xml;charset=UTF-8");
 		// resp.setHeader("Cache-Control", "no-cache");
 
 		PrintWriter out = resp.getWriter();
 		System.out.println("AJAX invoked!");
-		String username = req.getParameter("email");
-		String password = req.getParameter("password");
+		String username = req.getParameter("email");//获取邮箱
+		String password = req.getParameter("password");//获取密码
 		password = MD5.Md5(password);
 		UserService us = new UserService();
-		List<Object> result = us.Login(username, password);
+		List<Object> result = us.Login(username, password);//调用登陆事件
 		System.out.println(result.get(0).toString());
 
-		if (result.get(0).toString().equals("ok")) {
-			AccountEntity acc=(AccountEntity)result.get(1);
+		if (result.get(0).toString().equals("ok")) {//判断登陆结果返回不同的值
+			AccountEntity acc=(AccountEntity)result.get(1);//登陆成功返回用户类
 			session.setAttribute("user", acc);
 			
+			//重点
+			//登陆成功以后设置session
 			List<WalletEntity> wel=new WalletService().GetWalletByid(acc.getID());
 			session.setAttribute("defaultWallet", wel.get(0).getWalletID());
 			

@@ -23,25 +23,22 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String email = req.getParameter("email");
-		String name=req.getParameter("name");
-		String password = req.getParameter("password");
-		
-		AccountEntity account=new AccountEntity();
+		String email = req.getParameter("email");//获得注册时的邮箱
+		String name=req.getParameter("name");//获得注册时的用户名
+		String password = req.getParameter("password");//获得注册时的密码
+		AccountEntity account=new AccountEntity(); //创建一个用户类
 		account.setEmail(email);
 		account.setNickName(name);
-		account.setPassword(MD5.Md5(password));
+		account.setPassword(MD5.Md5(password));//密码MD5加密
+		account.setSex("不详");
 		UserService us=new UserService();
-		if(us.Register(account)){
+		if(us.Register(account)){//调用注册方法
 			resp.getWriter().print("ok");
 			resp.sendRedirect("main.jsp");
 		}

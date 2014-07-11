@@ -64,7 +64,7 @@
 		</p>
 		<ul class="footer-links">
 			<li>当前版本： v1.0.0</li>
-			<li><a href="#">GitHub 仓库</a></li>
+			<li><a href="https://github.com/mrchenhao/manymoney.git">GitHub 仓库</a></li>
 			<li><a href="../about/">关于</a></li>
 			<li>·</li>
 		</ul>

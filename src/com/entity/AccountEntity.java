@@ -1,7 +1,5 @@
 package com.entity;
 
-import java.util.Date;
-
 public class AccountEntity {
 	private int ID;
 	private String email;

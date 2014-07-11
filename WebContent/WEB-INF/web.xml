@@ -96,6 +96,17 @@
     <url-pattern>/ReportServlet</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+      <description>更改更人信息</description>
+    <display-name>DeleteDetailServlet</display-name>
+    <servlet-name>DeleteDetailServlet</servlet-name>
+    <servlet-class>com.servlet.DeleteDetailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name> DeleteDetailServlet</servlet-name>
+    <url-pattern>/DeleteDetailServlet</url-pattern>
+  </servlet-mapping>
   
+
   
 </web-app>

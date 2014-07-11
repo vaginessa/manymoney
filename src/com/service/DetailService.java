@@ -24,7 +24,7 @@ public class DetailService {
 	
 	public List<DetailEntity> getListbyWalletID(int ID)
 	{
-		String sql="SELECT * FROM MONEY_DETAIL WHERE DETAILTOWALLET=?";
+		String sql="SELECT * FROM MONEY_DETAIL WHERE DETAILTOWALLET=? order By DetailTime desc";
 		List<Map<String,Object>> lm=cd.executeQuery(sql, new Object[]{ID});
 		
 		List<DetailEntity> li=new ArrayList<>();

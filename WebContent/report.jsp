@@ -21,7 +21,7 @@
 <script type="text/javascript" src="js/Chart.js"></script>
 <title>ManyMoney</title>
 </head>
-<body>
+<body onload="getReportData()">
 	<%
 		AccountEntity acc = new AccountEntity();
 		if (session.getAttribute("user") == null) {
@@ -56,6 +56,7 @@
 			<input type="text" id="userID" style="display: none"
 				value="<%=acc.getID()%>">
 			<div id="header-bar">
+				<img class="header-img" src="images/sm1.jpg"/>
 				<a href="setting.jsp" id="header-name"> <%=acc.getNickName()%>
 				</a>
 				<!-- Split button -->
@@ -83,18 +84,24 @@
 		<!-- /.navbar-collapse -->
 	</div>
 	</nav>
-	<div id="main" style="height: 480px; width: 1000px; margin-top: 150px;">
+	<div id="main" style="height: auto; width: 1000px; margin-top: 150px;">
 		<div id="bar-left">
 			<ul class="nav nav-pills nav-stacked" role="tablist"
-				style="max-width: 300px;">
-				<li class="active" id="person-li"><a href="#">消费走势图</a></li>
-				<li id="password-li"><a href="#">消费分类</a></li>
+				style="max-width: 300px;position: fixed;">
+				<li class="active" id="person-li"><a href="#canvas-holder">消费饼图</a></li>
+				<li id="password-li"><a href="#canvsa-2">近七日消费收入</a></li>
+				<li id="type-li"><a href="">消费分类</a></li>
 			</ul>
 		</div>
 		<div id="zoushitu">
-			<div id="canvas-holder">
+			<div id="canvas-holder" style="height: 500px;">
+				<canvas id="outReport" width="300" height="300" />
+			</div>
+			
+			<div id="canvsa-2" style="margin-left: -100px;">
 				<canvas id="chart-area" width="300" height="300" />
 			</div>
+			
 
 
 		</div>
@@ -106,15 +113,20 @@
 	$("#person-li").click(function() {
 		$("#person-li").addClass("active");
 		$("#password-li").removeClass("active");
-		$("#personal_setting").css("display", "block");
-		$("#change_password").css("display", "none");
+		$("#type-li").removeClass("active");
 	});
 
 	$("#password-li").click(function() {
 		$("#password-li").addClass("active");
 		$("#person-li").removeClass("active");
-		$("#personal_setting").css("display", "none");
-		$("#change_password").css("display", "block");
+		$("#type-li").removeClass("active");
+	});
+	
+	$("#type-li").click(function(){
+		$("#password-li").removeClass("active");
+		$("#person-li").removeClass("active");
+		$("#type-li").addClass("active");
+		
 	});
 
 	$("#save-button")
@@ -157,44 +169,52 @@
 
 <script>
 
-		var pieData = [
-				{
-					value: 300,
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "Red"
-				},
-				{
-					value: 50,
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "Green"
-				},
-				{
-					value: 100,
-					color: "#FDB45C",
-					highlight: "#FFC870",
-					label: "Yellow"
-				},
-				{
-					value: 40,
-					color: "#949FB1",
-					highlight: "#A8B3C5",
-					label: "Grey"
-				},
-				{
-					value: 120,
-					color: "#4D5360",
-					highlight: "#616774",
-					label: "Dark Grey"
-				}
-
-			];
-
-			window.onload = function(){
-				var ctx = document.getElementById("chart-area").getContext("2d");
-				window.myPie = new Chart(ctx).Pie(pieData);
-			};
+			function getOutTypeJson()
+			{
+				$.ajax({
+	    			type : "post",//请求方式
+	    			url : "ReportServlet",//发送请求地址
+	    			data : {
+	    				type : "out",
+	    				id:$("#walletID").val()
+	    			},
+	    			dataType:"json",
+	    			
+	    			success : function(data) {
+	    				var ctx = document.getElementById("outReport").getContext("2d");
+	    				window.myPie = new Chart(ctx).Pie(data);
+	    			}
+	    		});
+				
+			}
+			
+			function getNearTenDays()
+			{
+				$.ajax({
+	    			type : "post",//请求方式
+	    			url : "ReportServlet",//发送请求地址
+	    			data : {
+	    				type :"ten",
+	    				id:$("#walletID").val()
+	    			},
+	    			dataType:"json",
+	    			//请求成功后的回调函数有两个参数
+	    			success : function(data) {
+	    				var ctx = document.getElementById("chart-area").getContext("2d");
+	    				window.myBar = new Chart(ctx).Bar(data, {
+	    					responsive : true
+	    				});
+	    			}
+	    		});
+				
+			}
+			
+			function getReportData()
+			{
+				getOutTypeJson();
+				getNearTenDays();
+			}
+			
 
 
 

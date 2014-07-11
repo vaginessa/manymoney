@@ -54,6 +54,7 @@
 			<input type="text" id="userID" style="display: none"
 				value="<%=acc.getID()%>">
 			<div id="header-bar">
+				<img class="header-img" src="images/sm1.jpg"/>
 				<a href="setting.jsp" id="header-name">
 					<%=acc.getNickName()%>
 				</a>
