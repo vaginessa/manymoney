@@ -20,12 +20,18 @@
 </head>
 <body onLoad="document.getElementById('price').focus();">
 	<%
+		int wid=0;
 		AccountEntity acc = new AccountEntity();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect("Login.jsp");
 		} else {
 			acc = (AccountEntity) session.getAttribute("user");
 			int ID = acc.getID();
+		}
+		
+		if(session.getAttribute("defaultWallet")!=null)
+		{
+			wid=Integer.parseInt(session.getAttribute("defaultWallet").toString());
 		}
 		
 		PrintToolService pts=new PrintToolService();
@@ -62,14 +68,19 @@
 						List<WalletEntity> wel=new WalletService().GetWalletByid(acc.getID());
 					%>
 					<%
+					
 						for(int i=0;i<wel.size();i++)
 																		{
-																			out.print("<option value="+wel.get(i).getWalletID()+"><a href='changeWalletServlet'>"+wel.get(i).getWalletName()+"</a></option>");
+							
+																			out.print("<option value='"+wel.get(i).getWalletID()+"'"); 
+																			if(wel.get(i).getWalletID()==wid)
+																			{
+																				out.print("selected='select'");
+																			}
+																			out.print("><a href='changeWalletServlet'>"+wel.get(i).getWalletName()+"</a></option>");
 																		}
 					%>
-					<option value="new">
-						<新建钱包>
-					</option>
+					
 				</select>
 
 				<div id="logout">
@@ -290,7 +301,24 @@
 		});
 
 		$("#walletID").change(function() {
-			//alert("")
+			//alert($("#walletID option:selected").val());
+			$.ajax({
+				type : "post",//请求方式
+				url : "ChangeWalletServlet",//发送请求地址
+				data : {//发送给数据库的数据
+					wallet : id=$("#walletID option:selected").val()
+				},
+				dataType : "html",
+				//请求成功后的回调函数有两个参数
+				success : function(data) {
+					var res = $(data).find("msg").text();
+					if ("ok" == res) {
+						window.location.reload();
+					}
+
+				}
+			});
+			
 		});
 		
 		function clearNoNum(obj)
